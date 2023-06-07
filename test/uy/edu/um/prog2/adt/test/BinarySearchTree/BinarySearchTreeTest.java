@@ -1,5 +1,6 @@
 package uy.edu.um.prog2.adt.test.BinarySearchTree;
 
+import org.junit.Assert;
 import org.junit.Test;
 import uy.edu.um.prog2.adt.binarysearchtree.BinarySearchTree;
 import uy.edu.um.prog2.adt.exceptions.EmptyQueueException;
@@ -7,9 +8,12 @@ import uy.edu.um.prog2.adt.exceptions.EmptyTreeException;
 import uy.edu.um.prog2.adt.exceptions.InformacionInvalida;
 import uy.edu.um.prog2.adt.queue.Queue;
 
-class MyBinarySearchTreeTest {
+public class BinarySearchTreeTest {
     @Test
-    public void testOperations() {
+    public void testBinarySearchTree() {
+        System.out.println("\nTEST ARBOL BINARIO DE BUSQUEDA");
+
+        // Crear un árbol binario de búsqueda
         BinarySearchTree<Integer, String> bst = new BinarySearchTree<>();
 
         try {
@@ -23,13 +27,13 @@ class MyBinarySearchTreeTest {
             bst.insert(9, "Data9");
 
             // Buscar elementos
-            System.out.println(bst.find(3)); // Output: Data3
-            System.out.println(bst.find(7)); // Output: Data7
-            System.out.println(bst.find(10)); // Output: null
+            Assert.assertEquals("Data3", bst.find(3));
+            Assert.assertEquals("Data7", bst.find(7));
+            Assert.assertNull(bst.find(10));
 
             // Eliminar un elemento
             bst.delete(8);
-            System.out.println(bst.find(8)); // Output: null
+            Assert.assertNull(bst.find(8));
 
             // Recorrido inOrder
             Queue<Integer> inOrder = bst.inOrder();
@@ -60,3 +64,4 @@ class MyBinarySearchTreeTest {
         }
     }
 }
+
