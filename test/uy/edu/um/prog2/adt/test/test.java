@@ -164,7 +164,7 @@ public class test {
         System.out.println("\nTEST HASH TABLE");
 
         // Crear una instancia de HashTable
-        HashTable<String, Integer> hashTable = new HashTable<>(10);
+        HashTable<String, Integer> hashTable = new HashTable<>();
 
         // Agregar elementos a la tabla hash
         hashTable.put("A", 1);

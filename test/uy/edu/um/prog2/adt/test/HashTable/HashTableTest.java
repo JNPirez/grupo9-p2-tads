@@ -8,7 +8,7 @@ public class HashTableTest {
     @Test
     public void testHashTableOperations() {
         // Crear una instancia de HashTable
-        HashTable<String, Integer> hashTable = new HashTable<>(10);
+        HashTable<String, Integer> hashTable = new HashTable<>();
 
         // Agregar elementos a la tabla hash
         hashTable.put("A", 1);
