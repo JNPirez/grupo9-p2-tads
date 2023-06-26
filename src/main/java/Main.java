@@ -18,6 +18,7 @@ public class Main {
 
             switch (option) {
                 case 1:
+
                     System.out.print("Ingrese el mes(MM):  ");
                     int month = scanner.nextInt();
                     System.out.print("Ingrese el año(YYYY):  ");
