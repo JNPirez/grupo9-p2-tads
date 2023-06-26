@@ -37,14 +37,23 @@ public class Main {
                     CsvReader.HashTagsPorDia(LocalDate.of(fecha.getYear(), fecha.getMonth(), fecha.getDayOfMonth()));
                     break;
                 case 4:
+                    System.out.print("Ingrese la fecha(YYYY-MM-DD):  ");
+                    String fechaText2 = scanner.nextLine();
+                    LocalDate fecha2 = LocalDate.parse(fechaText2);
+                    System.out.println("Aguarde mientras se realiza la consulta...");
+                    CsvReader.mostUsedHashTagForADay(fecha2);
                     break;
                 case 5:
+                    System.out.println("Aguarde mientras se realiza la consulta...");
+                    CsvReader.top7UsersWithMoreFavourites();
                     break;
                 case 6:
                     System.out.print("Ingrese el texto a buscar: ");
                     String textoBusqueda = scanner.nextLine();
                     System.out.println("Aguarde mientras se realiza la consulta...");
                     CsvReader.buscartTweetPorPalabra(textoBusqueda);
+                    break;
+                case 0:
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, elija una opción válida.");

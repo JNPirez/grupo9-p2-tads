@@ -7,6 +7,9 @@ import org.apache.commons.csv.CSVRecord;
 import uy.edu.um.prog2.adt.exceptions.FileNotValidException;
 import uy.edu.um.prog2.adt.hashtable.HashTable;
 import uy.edu.um.prog2.adt.hashtable.MyHashTable;
+import uy.edu.um.prog2.adt.heap.Heap;
+import uy.edu.um.prog2.adt.heap.HeapNode;
+import uy.edu.um.prog2.adt.heap.MyHeap;
 import uy.edu.um.prog2.adt.linkedlist.LinkedList;
 import uy.edu.um.prog2.adt.linkedlist.MyLinkedList;
 
@@ -225,13 +228,72 @@ YYYY-MM-DD.
 en el formato YYYY-MM-DD
  */
 
+    public static void mostUsedHashTagForADay(LocalDate date) {
+
+        MyHashTable<String, Integer> hashTagHashTable = new HashTable<>();
+        MyHeap<HeapNode<String, Integer>> hashTagHeap = new Heap<>();
+
+        for (int i = 0; i < tweetsList.size(); i++) {
+            Tweet tweet = tweetsList.get(i);
+            LocalDate tweetDate = tweet.getFecha();
+
+            if (tweetDate.equals(date) && tweet.getHashTags() != null) {
+
+                String[] hashTagsSplit = tweet.getHashTags().getText().replaceAll("[\\[\\]' ]", "").split(",");
+
+                for (String hashTag : hashTagsSplit) {
+                    if (!hashTag.equalsIgnoreCase("f1")) {
+                        Integer count = hashTagHashTable.get(hashTag);
+                        if (count == null) {
+                            hashTagHashTable.put(hashTag, 1);
+                        } else {
+                            hashTagHashTable.put(hashTag, count + 1);
+                        }
+                    }
+                }
+
+                for (String hashTag : hashTagsSplit) {
+                    if (!hashTag.equalsIgnoreCase("f1")) {
+                        Integer count = hashTagHashTable.get(hashTag);
+                        HeapNode<String, Integer> hashTagNode = new HeapNode(hashTag, count);
+                        hashTagHeap.add(hashTagNode);
+                    }
+                }
+            }
+        }
+
+        String hashtagMasUsado = (String) hashTagHeap.getAndRemove().getKey();
+
+        System.out.println("El hashtag más usado para el día " + date + " fue: " + hashtagMasUsado);
+    }
+
 
 /*
 Top 7 cuentas con más favoritos. Para este listado se deberá retornar el nombre del
 usuario, junto con la cantidad de favoritos.
  */
 
+    public static void top7UsersWithMoreFavourites() {
 
+        MyHeap<HeapNode<User, Double>> heap = new Heap<>();
+
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
+            HeapNode<User, Double> heapNodeTemp = new HeapNode<>(user, user.getFavourites());
+            heap.add(heapNodeTemp);
+        }
+
+        LinkedList<HeapNode<User, Double>> topLista = new LinkedList<>();
+        for (int i = 0; i < 7; i++) {
+            topLista.add(heap.getAndRemove());
+        }
+
+        System.out.println("Los 7 usuarios con más favourites son:");
+        for (int i = 0; i < topLista.size(); i++) {
+            System.out.println((i+1) +". " + topLista.get(i).getKey().getName() + " - con: " + topLista.get(i).getValue() + " favoritos");
+        }
+
+    }
 
 /*
 6) Cantidad de tweets con una palabra o frase específica (que será ingresado como
